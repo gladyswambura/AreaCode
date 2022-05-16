@@ -1,0 +1,2 @@
+# AreaCode
+Flask group project
