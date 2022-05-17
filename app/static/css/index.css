@@ -54,3 +54,27 @@ body{
     color:#12f15e;
     background-color: black;
 }
+span{
+    color:#0275d8;
+}
+.form input{
+    background-color:#0275d8;
+    border-radius: 0px;
+    border: 1px solid #0275d8;
+    height: 4rem
+}
+.form{
+    color:black;
+}
+.btn-submit{
+    color:white;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
+    width: 15rem;
+
+}
+.formlocation{
+    width: 10rem;
+
+}
