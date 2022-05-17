@@ -1,5 +1,9 @@
+
 from . import db
 from datetime import datetime
+from . import db, login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
 
 
 class Crud():
@@ -18,9 +22,10 @@ class User(db.Model, Crud):
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    pass_secure = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
     profile_pic = db.Column(db.String(80), nullable=False)
+    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     user_created = db.Column(db.DateTime, default=datetime.now())
     user_updated = db.Column(db.DateTime, default=datetime.now())
     post = db.relationship('Post', backref='user', lazy=True)
@@ -28,6 +33,43 @@ class User(db.Model, Crud):
     dislike = db.relationship('Dislikes', backref='user', lazy=True)
     comment = db.relationship('Comment', backref='user', lazy=True)
     
+    @login_manager.user_loader
+    def load_user(user_id):
+    return User.query.get(int(user_id))
+    
+    
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
+
+    @password.setter
+    def password(self, password):
+        self.pass_secure = generate_password_hash(password)
+    
+    # def pass_secure(self,password):
+    #     return True
+
+
+
+    def verify_password(self,password):
+        return check_password_hash(self.password,password)
+
+    # def verify_password(self,count,password):
+    #     self.count=count
+    #     return check_password_hash(self.pass_secure,password)
+
+    def __repr__(self):
+        return f'User {self.username}'
+      
+class Role(db.Model):
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer,primary_key = True)
+    name = db.Column(db.String(255))
+    users = db.relationship('User',backref = 'role',lazy="dynamic")
+
+    def __repr__(self):
+        return f'User {self.name}'    
 
 class Post(db.Model, Crud):
     __tablename__ = 'post'
@@ -72,3 +114,11 @@ class Dislikes(db.Model, Crud):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+
+
+
+
+
+
+

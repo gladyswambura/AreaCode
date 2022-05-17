@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,12 @@
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
   <link rel="stylesheet" href="{{url_for( 'static', filename='css/bootstrap.min.css')}}" />
 </head>
+  {% extends 'bootstrap/base.html'%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<!-- Navbar block  --> 
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
 <body>
   {% block body %}
   {% block content %}
