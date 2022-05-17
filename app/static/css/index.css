@@ -1,3 +1,29 @@
+
+.bg-dark{
+    background-color: #343a40;
+    height:100vh;
+    /* margin-left: 15px; */
+}
+
+.bg-darrk{
+    background-color: #343a40;
+    height:100vh;
+}
+
+.navbar-star{
+    border-radius: 0.5em;
+}
+
+#subscribe{
+    border: 1px solid #000;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: hsl(273, 88%, 48%)!important;
+    font-size: 1.5em;
+    border-radius: 5px;
+    margin: 1rem;
+}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 *{
@@ -81,5 +107,4 @@ span{
 }
 .formlocation{
     width: 10rem;
-
 }
