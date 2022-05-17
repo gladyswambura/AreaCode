@@ -114,10 +114,3 @@ class Dislikes(db.Model, Crud):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
-
-
-
-
-
-
-
