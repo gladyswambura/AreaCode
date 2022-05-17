@@ -1,29 +1,31 @@
 from . import auth
-from flask import render_template,redirect,url_for,flash,request
+from flask import render_template, redirect, url_for, flash, request
 from ..models import User
-from .forms import RegistrationForm,LoginForm
+from .forms import RegistrationForm, LoginForm
 from .. import db
 from flask_login import login_user, logout_user, login_required
 
-@auth.route('/register',methods = ["GET","POST"])
+
+@auth.route('/register', methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(firstname=form.firstname.data, 
+        user = User(firstname=form.firstname.data,
                     lastname=form.lastname.data,
-                    email = form.email.data, 
-                    username = form.username.data,
-                    password = form.password.data,
-                    locations = form.location.data)
+                    email=form.email.data,
+                    username=form.username.data,
+                    password=form.password.data,
+                    locations=form.location.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('auth.login'))
-    
+
     title = "BlogApp | Sign In"
-    return render_template('auth/register.html',registration_form = form, title=title)
+    return render_template('auth/register.html', registration_form=form, title=title)
+
 
 # Login route
-@auth.route("/", methods=["POST"])
+@auth.route("/login", methods=["POST"])
 def login():
     login_form = LoginForm()
     if request.method == 'POST':
@@ -35,7 +37,7 @@ def login():
         if user is None:
             error = 'A user with that username  does not exist'
             return render_template('auth/login.html')
-        
+
         is_correct_password = user.check_password(password)
         print(is_correct_password)
         if not is_correct_password:
@@ -44,11 +46,12 @@ def login():
         else:
             login_user(user)
             return redirect(url_for('home.home'))
-        
-    return render_template('auth/login.html', login_form = login_form)
+
+    return render_template('auth/login.html', login_form=login_form)
+
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.index"))@auth.route('/logout')
+    return redirect(url_for("main.index")) @ auth.route('/logout')
