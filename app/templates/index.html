@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+<!-- Styles block -->
+{%block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}" />
+{%endblock%}
+<body>
+  {% block content %}
+  <div
+    class="container-fluid landing-page"
+    style="
+      background-image: linear-gradient(
+          100deg,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.5)
+        ),
+        url(../static/photos/areacodeback.jpeg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 85vh;
+      margin: 40px 80px;
+      opacity: 0.9;
+    "
+  >
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text text-center">We are at the Heart of every Neighbourhood. Keeping you in tabs with everything around your Estate.</p>
+          <p>Need all the <em>tea</em> about the estate party, the <em>details</em> of the recent security mishap, <br> the <em>411</em> on the alcho-blow stops along your route <br> and ontime traffic updates, look no further.<br> Join us Today! </p>
+          <a href="{{url_for('auth.register')}}" class=" btn my-2 my-sm-0 card-link reg">REGISTER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock%}
+</body>

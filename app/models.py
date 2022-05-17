@@ -1,29 +1,116 @@
+from . import db
 from datetime import datetime
+from . import db, login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
-from . import login_manager
 
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+class Crud():
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return True
+        
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        return True
+
+class User(db.Model, Crud):
+    __tablename__ = 'user'
+    
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    password = db.Column(db.String(255), nullable=False,  unique=True)
-    comment = db.relationship('Comment', backref='username', lazy='dynamic')
-
+    email = db.Column(db.String(255), nullable=False)
+    pass_secure = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    profile_pic = db.Column(db.String(80), nullable=False)
+    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+    user_created = db.Column(db.DateTime, default=datetime.now())
+    user_updated = db.Column(db.DateTime, default=datetime.now())
+    post = db.relationship('Post', backref='user', lazy=True)
+    likes = db.relationship('Likes', backref='user', lazy=True)
+    dislike = db.relationship('Dislikes', backref='user', lazy=True)
+    comment = db.relationship('Comment', backref='user', lazy=True)
+    
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+    
+    
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
 
-    def set_password(self, password):
-        pass_hash = generate_password_hash(password)
-        self.password = pass_hash
+    @password.setter
+    def password(self, password):
+        self.pass_secure = generate_password_hash(password)
+    
+    # def pass_secure(self,password):
+    #     return True
 
-    def verify_password(self, password):
-        return check_password_hash(self.password, password)
+
+
+    def verify_password(self,password):
+        return check_password_hash(self.password,password)
+
+    # def verify_password(self,count,password):
+    #     self.count=count
+    #     return check_password_hash(self.pass_secure,password)
 
     def __repr__(self):
-        return f'User: {self.username}'
+        return f'User {self.username}'
+      
+class Role(db.Model):
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer,primary_key = True)
+    name = db.Column(db.String(255))
+    users = db.relationship('User',backref = 'role',lazy="dynamic")
+
+    def __repr__(self):
+        return f'User {self.name}'    
+
+class Post(db.Model, Crud):
+    __tablename__ = 'post'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_img = db.Column(db.String(80), nullable=False)
+    post_body = db.Column(db.String(200), nullable=False)
+    post_likes = db.relationship('Likes', backref='post', lazy=True)
+    post_dislikes = db.relationship('Dislikes', backref='post', lazy=True)
+    post_comments = db.relationship('Comment', backref='post', lazy=True)
+    post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_created = db.Column(db.DateTime, default=datetime.now())
+    
+
+class Comment(db.Model, Crud):
+    __tablename__ = 'comment'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    commenttext = db.Column(db.String(200), nullable=False)
+    created_at = db.Column(db.DateTime,default=datetime.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable=False)
+    
+    def delete(self):
+        post =Post.query.filter_by(id=self.post).first()
+        post.comments.remove(self)
+        self.delete()
+        return self.save()
+    
+    # def update(self):
+    #     comment = Comment.query.filter_by(id=self.id).first()
+    #     comment.comment = self.comment
+    #     return comment.save()
+    
+    
+class Likes(db.Model, Crud):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    
+class Dislikes(db.Model, Crud):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
