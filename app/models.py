@@ -75,7 +75,7 @@ class Post(db.Model, Crud):
     __tablename__ = 'post'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_img = db.Column(db.String(80), nullable=False)
+    user_img = db.Column(db.String(80), nullable=True)
     post_body = db.Column(db.String(200), nullable=False)
     post_created = db.Column(db.DateTime, default=datetime.now())
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
