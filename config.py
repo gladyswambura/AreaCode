@@ -1,23 +1,24 @@
 import os
 
-class Config:
-    '''
-    General configuration parent class
-    '''
-    
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://flora:wambui@localhost/blog'
-
-
-
-class ProdConfig(Config):
-    pass
-
+class Config():
+    SECRET_KEY = os.environ.get('SECRET_KEY') 
 
 class DevConfig(Config):
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost:5432/areacode'
+    DEBUG=True
+
+class ProdConfig(Config):
+    uri = os.getenv('DATABASE_URL')
+    if uri and uri.startswith('postgres://'):
+        uri = uri.replace('postgres://', 'postgresql://', 1)
+
+    SQLALCHEMY_DATABASE_URI = uri
+
+class TestConfig(Config):
+    pass
 
 config_options = {
-'development':DevConfig,
-'production':ProdConfig
+    'development': DevConfig,
+    'production': ProdConfig,
+    'testing': TestConfig
 }

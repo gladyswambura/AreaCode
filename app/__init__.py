@@ -1,7 +1,7 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from config import config_options
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 
 login_manager = LoginManager()
@@ -23,14 +23,14 @@ def create_app(config_name):
     login_manager.init_app(app)
 
     # Registering the blueprint
+    # register home blueprint
+    from .home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
+    
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint,url_prefix = '/authenticate')
-
-
-
-
 
     return app
