@@ -23,7 +23,7 @@ def register():
     return render_template('auth/register.html',registration_form = form, title=title)
 
 # Login route
-@auth.route("/", methods=["GET", "POST"], strict_slashes=False)
+@auth.route("/", methods=["POST"])
 def login():
     login_form = LoginForm()
     if request.method == 'POST':
@@ -34,16 +34,16 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user is None:
             error = 'A user with that username  does not exist'
-            return render_template('auth/login.html', error=error)
+            return render_template('auth/login.html')
         
         is_correct_password = user.check_password(password)
         print(is_correct_password)
         if not is_correct_password:
             error = 'A user with that password does not exist'
-            return render_template('auth/login.html', error=error)
+            return render_template('auth/login.html')
         else:
             login_user(user)
-            return redirect(url_for('home.home', error=error))
+            return redirect(url_for('home.home'))
         
     return render_template('auth/login.html', login_form = login_form)
 
