@@ -1,16 +1,18 @@
-from distutils.debug import DEBUG
 import os
 
-from flask_uploads import configure_uploads
-
 class Config():
-    pass
+    SECRET_KEY = os.environ.get('SECRET_KEY') 
 
 class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost:5432/areacode'
     DEBUG=True
 
 class ProdConfig(Config):
-    pass
+    uri = os.getenv('DATABASE_URL')
+    if uri and uri.startswith('postgres://'):
+        uri = uri.replace('postgres://', 'postgresql://', 1)
+
+    SQLALCHEMY_DATABASE_URI = uri
 
 class TestConfig(Config):
     pass
