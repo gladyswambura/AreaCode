@@ -4,7 +4,7 @@ class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY') 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost:5432/areacode'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost/areacode'
     DEBUG=True
 
 class ProdConfig(Config):
