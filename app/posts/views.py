@@ -1,12 +1,12 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 
-from App import db
-from App.models import Post
-from App.posts.forms import PostForm
-from App.posts.utils import save_picture
+from app import db
+from app.models import Post
+from app.posts.forms import PostForm
+from app.posts.utils import save_picture
 
-posts = Blueprint('posts', __name__)
+from . import posts
 
 @posts.route("/",methods=['GET', 'POST'])
 @posts.route("/post/new", methods=['GET', 'POST'])

@@ -24,6 +24,9 @@ def create_app(config_name):
 
     # Registering the blueprint
     # register home blueprint
+    from .posts import posts as posts_blueprint
+    posts = app.register_blueprint('posts', __name__)
+    
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
     
