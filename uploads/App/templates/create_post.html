@@ -65,7 +65,7 @@
                 {% for post in posts %}
                 <div class="card mt-2">
                     <div class="card-body">
-                        <img class="" src="{{ url_for('static', filename='uploads/' + post.image_file) }}">
+                        <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}">
                         {{post.content}}
                     </div>
                 </div>
