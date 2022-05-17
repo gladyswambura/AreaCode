@@ -12,7 +12,7 @@ def home():
     postform = PostForm()
     commentform = CommentForm()
     posts = all_posts(Post.query.all())
-    recent_posts = all_posts(Post.query.order_by(desc('created_at')).limit(5))
+    recent_posts = all_posts(Post.query.order_by(desc('post_created')).limit(5))
     return render_template('home.html', title=title, postform=postform, commentform=commentform, recent_posts=recent_posts, posts=posts)
 
 def all_posts(posts):
