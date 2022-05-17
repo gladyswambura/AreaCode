@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+.navbar{
+    background-color:#0275d8; 
+    padding:10px;
+}
+.navbar-brand{
+    color:white !important;
+    font-weight:800;
+    font-size: 24px;
+    
+    
+}
+.logbtn{
+    color:#0275d8;
+    border: 1px solid white !important;
+    background-color: white;
+    border-radius: 0px !important;
+    font-weight: 800;
+}
+.logbtn:hover{
+    color: white;
+    background-color: #0275d8;
+}
