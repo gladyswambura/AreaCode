@@ -81,6 +81,7 @@ class Post(db.Model, Crud):
     post_comments = db.relationship('Comment', backref='post', lazy=True)
     post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_created = db.Column(db.DateTime, default=datetime.now())
+    post_pic = db.relationship('Images', backref='post', lazy=True)
     
 
 class Comment(db.Model, Crud):
@@ -102,6 +103,13 @@ class Comment(db.Model, Crud):
     #     comment = Comment.query.filter_by(id=self.id).first()
     #     comment.comment = self.comment
     #     return comment.save()
+    
+class Images(db.Model, Crud):
+    __tablename__ = 'images'
+    id = db.Column(db.Integer, primary_key=True)
+    uploader_id = db.Column(db.String(80), nullable=False)
+    
+    
     
     
 class Likes(db.Model, Crud):
