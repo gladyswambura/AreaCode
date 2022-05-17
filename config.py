@@ -11,7 +11,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
 
 class TestConfig(Config):
     '''
@@ -19,7 +19,7 @@ class TestConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
 
 class DevConfig(Config):
     '''
@@ -27,7 +27,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    DEBUG=True
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
 
 config_options = {
     'development':DevConfig,
