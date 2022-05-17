@@ -4,8 +4,12 @@
 {%block styles%} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}" />
 {%endblock%}
+
 <body>
   {% block content %}
+  {% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
   <div
     class="container-fluid landing-page"
     style="
@@ -17,18 +21,19 @@
         url(../static/photos/areacodeback.jpeg);
       background-repeat: no-repeat;
       background-size: cover;
-      height: 85vh;
-      margin: 40px 80px;
+      height: 88vh;
+      margin: 0px 0px;
       opacity: 0.9;
+      overflow:hidden;
     "
   >
-    <div class="container">
+    <div class="container pt-5 intro">
       <div class="card">
         <div class="card-body">
           <p class="card-text text-center">We are at the Heart of every Neighbourhood. <br>Keeping you in tabs with everything <br>around your Estate.</p>
           <p>Need all the <em>tea</em> about the estate party,<br> the <em>details</em> of the recent security mishap, <br> the <em>411</em> on the alcho-blow stops along your <br>route and ontime traffic updates, <br>look no further.<br> Join us Today! </p>
           <div class="registerbttn"><a href="{{url_for('auth.register')}}" class=" btn my-2 my-sm-0 card-link reg">REGISTER</a></div>
-          
+          <a href="{{url_for('home.home')}}">AREACODE</a>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ class Config():
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost/areacode'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://flora:wambui@localhost/areacode'
     DEBUG=True
 
 class ProdConfig(Config):
