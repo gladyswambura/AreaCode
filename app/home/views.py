@@ -5,7 +5,14 @@ from ..models import Post, User, Comment
 from sqlalchemy import desc
 from flask_login import current_user, login_required
 
+
 @home.route('/')
+def index():
+ 
+    title = 'Area Code | Live Freely'
+    return render_template('index.html', title=title)
+
+
 @home.route('/home')
 def home():
     title= "AreaCode --Homepage"
