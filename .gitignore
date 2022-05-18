@@ -1,10 +1,3 @@
-<<<<<<< HEAD
 blogvirtual/
 *.pyc
 __pychache__/
-=======
-env/
-__pycache__/
-unusedcode.html
-.idea/
->>>>>>> f9859606b796d9aff5d8ff117ed11b103f9ebe12

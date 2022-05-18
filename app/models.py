@@ -46,17 +46,8 @@ class User(UserMixin, db.Model, Crud):
     def password(self, password):
         self.pass_secure = generate_password_hash(password)
     
-    # def pass_secure(self,password):
-    #     return True
-
-
-
     def verify_password(self,password):
         return check_password_hash(self.password,password)
-
-    # def verify_password(self,count,password):
-    #     self.count=count
-    #     return check_password_hash(self.pass_secure,password)
 
     def __repr__(self):
         return f'User {self.username}'
