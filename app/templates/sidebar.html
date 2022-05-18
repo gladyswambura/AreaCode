@@ -29,13 +29,12 @@
         data-bs-target="#account-collapse"  aria-expanded="false">
         My Profile
       </button></a>
-      <div class="collapse" id="account-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">Profile</a></li>
-          <li><a href="#" class="link-dark rounded">Settings</a></li>
-          <li><a href="#" class="link-dark rounded">Sign out</a></li>
-        </ul>
-      </div>
+      <a href="{{url_for('auth.logout')}}">
+      <button class="btn btn-dark btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+      data-bs-target="#account-collapse"  aria-expanded="false">
+      Log Out
+    </button></a>
+  
     </li>
   </ul>
 </div>

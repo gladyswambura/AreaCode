@@ -3,6 +3,7 @@ from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from app import login_manager
 
 
 class Crud():
@@ -27,7 +28,7 @@ class User(UserMixin, db.Model, Crud):
     username = db.Column(db.String(80), unique=True, nullable=False)
     locations = db.Column(db.String(255), nullable=False)
     user_bio = db.Column(db.String(255), nullable=True)
-    profile_pic = db.Column(db.String(80), nullable=True)
+    profile_pic = db.Column(db.String(80), nullable=False, default=[('default.jpg'),('default.png'),('default.jpeg')])
     user_created = db.Column(db.DateTime, default=datetime.now())
     user_updated = db.Column(db.DateTime, default=datetime.now())
     post = db.relationship('Post', backref='user', lazy=True)
@@ -45,6 +46,10 @@ class User(UserMixin, db.Model, Crud):
     
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
    
     def add_comment(self, comment):

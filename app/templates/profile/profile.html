@@ -7,7 +7,20 @@
     <br><br><br><br>
     <div class="card">
         <div class="card-body">
-            <img src="" alt="Userimage" >
+            <form method="POST" action="" enctype="multipart/form-data">
+                <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form.profile_pic.label() }}
+                    {{ form.profile_pic(class="form-control-file") }}
+                    {% if form.profile_pic.errors %}
+                    {% for error in form.profile_pic.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    </br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -16,11 +29,11 @@
                 <div class="card-body">
                     <!-- Profilepic -->
                     <div class="text-center">
-                        <img src="" class='bg-dark' alt=""
+                        <img class="" src="{{ url_for('static', filename='photos/' + user.profile_pic) }}"
                             style="width:150px; height:150px; border-radius:50%;margin-top: -30px;">
-                         <br><br>
+                        <br><br>
                     </div>
-                        <h4 class="card-subtitle mb-2 text-active text-center">{{username}}</h4>
+                    <h4 class="card-subtitle mb-2 text-active text-center">{{current_user.username}}</h4>
                     <br>
                     <h6 class="card-subtitle mb-2 text-active text-center">Location</h6>
                     <br><br>
@@ -37,13 +50,13 @@
                     <div class="profile-usermenu sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a href="{{url_for('home.updateprofile', user_id=current_user.id)}}"
+                                <a href="{{url_for('home.profile', user_id=current_user.id)}}"
                                     class="btn btn-primary"><i class="fas fa-user-edit"></i>Profile Settings</a>
                             </li>
                         </ul>
                     </div>
                     {%endif%}
-                    
+
                 </div>
             </div>
         </div>
@@ -52,12 +65,12 @@
             <h5 class="card-title text-center">POSTS</h5>
             <div class="card">
                 <div class="card-body">
-                  <div class="col-md-9">
-                      <div class="profile-content">
-                          post
-                          
-                      </div>
-                  </div>
+                    <div class="col-md-9">
+                        <div class="profile-content">
+                            post
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
