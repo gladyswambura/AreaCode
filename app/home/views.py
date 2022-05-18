@@ -13,6 +13,7 @@ def load_user(user_id):
 
 
 @home.route('/home')
+@login_required
 def homepage():
     title = "AreaCode --Homepage"
     commentform = CommentForm()

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,7 +13,6 @@
   {% else %}
   <title>Area Code</title>
   {% endif %}
-  {% extends 'bootstrap/base.html'%}
 </head>
 
 <!-- Navbar block  -->
@@ -25,14 +23,15 @@
 <body>
   {% block body %}
   {% block content %}
+ 
   {% endblock %}
   {% endblock %}
-  <script src="{{url_for('static', filename='js/jquery-3.6.0.js')}}"></script>
-  <script src="{{url_for('static', filename='js/popper-2.11.2.js')}}"></script>
-  <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/script.js')}}"></script>
-  <script src="{{url_for('static', filename='js/test.js')}}"></script>
 
 </body>
+<script src="{{url_for('static', filename='js/jquery-3.6.0.js')}}"></script>
+<script src="{{url_for('static', filename='js/popper-2.11.2.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="{{url_for('static', filename='js/test.js')}}"></script>
 
 </html>
