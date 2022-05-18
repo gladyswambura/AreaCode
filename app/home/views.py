@@ -29,17 +29,62 @@ def all_posts(posts):
             comment.user = User.query.filter_by(id=comment.user.id).first()
     return posts
 
+
+@home.route('/profile/<int:user_id>')
+@login_required
+def profile(user_id):
+
+
+
+    return render_template('profile/profile.html')
+
+# @home.route('/user/<uname>/update/pic',methods= ['POST'])
 # @login_required
-# @home.route('/<int:user_id>/posts')
-# def posts(user_id):
-#     commentform = CommentForm()
-#     posts = Post.query.filter_by(author_id=user_id).all()
-#     return render_template('posts.html', posts=posts, commentform=commentform)
+# def update_pic(uname):
+#     user = User.query.filter_by(username = uname).first()
+#     if 'photo' in request.files:
+#         filename = photos.save(request.files['photo'])
+#         path = f'photos/{filename}'
+#         user.profile_pic_path = path
+#         db.session.commit()
+#     return redirect(url_for('main.profile',uname=uname))
+
+
+
+
+# @landing.route('/<int:user_id>/profile', methods=['GET', 'POST'])
+# @login_required
+# def profile(user_id):
+#     user = User.query.filter_by(id=user_id).first()
+#     if 'photo' in request.files:
+#         if user.profile_pic_path:
+#             user_image = f"/{user.profile_pic_path.split('/')[1]}"
+#             path = os.path.abspath(os.environ.get(
+#                 'UPLOADED_PHOTOS_DEST') + user_image)
+#             if os.path.exists(path):
+#                 os.remove(path)
+#         filename = photos.save(request.files['photo'])
+#         path = f'photos/{filename}'
+#         user.profile_pic_path = path
+#         user.save()
+#         return redirect(url_for('landing.profile', user_id=user_id))
+#     return render_template('profile.html', user=user)
+
+
+
+
+@home.route('/updateprofile/<int:user_id>')
+@login_required
+def updateprofile(user_id):
+
+    return render_template('profile/update_profile.html')
     
 
 # about
 def about():
     return render_template('about.html')
+
+
 
 # new post view
 # @login_required

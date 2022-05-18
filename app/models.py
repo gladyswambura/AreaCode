@@ -32,6 +32,7 @@ class User(UserMixin, db.Model, Crud):
     user_updated = db.Column(db.DateTime, default=datetime.now())
     post = db.relationship('Post', backref='user', lazy=True)
     comment = db.relationship('Comment', backref='user', lazy=True)
+
     
 
     
