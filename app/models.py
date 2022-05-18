@@ -51,6 +51,11 @@ class User(UserMixin, db.Model, Crud):
 
     def __repr__(self):
         return f'User {self.username}'
+    
+# class Anonymous(AnonymousUserMixin):
+#     def __init__(self):
+#     self.username = 'Guest'    
+
       
 class Role(db.Model, Crud):
     __tablename__ = 'roles'
@@ -66,11 +71,11 @@ class Post(db.Model, Crud):
     __tablename__ = 'post'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_img = db.Column(db.String(80), nullable=False)
+    user_img = db.Column(db.String(80), nullable=True)
     post_body = db.Column(db.String(200), nullable=False)
     post_created = db.Column(db.DateTime, default=datetime.now())
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     post_likes = db.relationship('Likes', backref='post', lazy=True)
     post_dislikes = db.relationship('Dislikes', backref='post', lazy=True)
     post_comments = db.relationship('Comment', backref='post', lazy=True)
