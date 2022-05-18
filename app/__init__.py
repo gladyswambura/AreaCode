@@ -34,11 +34,6 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-
-    from app.posts.views import posts
-    app.register_blueprint(posts)
-
-
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
