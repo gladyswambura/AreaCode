@@ -3,19 +3,19 @@
     commentform, user) %}
 <div class="accordion" id="postsaccordion">
     {% for post in posts %}
-    <div class="card my-4 custom-bg-2 custom-card p-2 bg-light">
+    <div class="card my-4 custom-bg-2 custom-card p-2 text-dark">
         <div class="card-title">
-            <h2 class="post-post-title">{{post.title}}</h2>
+            <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}"> <br>
         </div>
         <div class="card-header" id="{{post.id}}">
             <div class="" data-toggle="collapse" data-target="#post{{post.id}}">
-                <span class="">{{post.post}}</span>
+                <span class="">{{post.post_body}}</span>
                 <div class="card-body pt-1">
                     <p class="float-left">
                         <small class="text-muted">By:</small><strong
-                            class="badge badge-dark">{{post.user.username}}</strong>
+                            class="badge badge-dark">{{post.username}}</strong>
                     </p>
-                    <p class="float-right">
+                    <p class="float-right text-dark">
                         <small>
                             <strong>{{post.post_created.strftime("%b, %d, %Y")}}</strong>
                         </small>
@@ -26,7 +26,7 @@
         </div>
         <div>
             <p class="badge">
-                {{post.comments | length}}
+                {{post.post_comments | length}}
                 <i class="fas text-primary fa-comment-dots fa-2x"></i>
                 </a>
             </p>
@@ -57,9 +57,9 @@
                 </button>
             </form>
             {% endif %}
-            <h6 class="mt-4 pl-3 custom-color">{{post.comments |length}} comments</h6>
+            <h6 class="mt-4 pl-3 custom-color">{{post.post_comments |length}} comments</h6>
             <div class="custom-bg-2 comment-section{{post.id}}">
-                {% for comment in post.comments %}
+                {% for comment in post.post_comments %}
                 <p class="pl-3">
                     <span class="badge badge-secondary custom-color">By@{{comment.username}}</span>
                     <small>{{comment.comment}}</small>
@@ -74,12 +74,12 @@
 {% macro display_latestposts(posts, user) %}
 <div class="latest-posts mt-5">
     {% for post in posts %}
-    <div class="card custom-card custom-bg-2 my-2 bg-light">
+    <div class="card custom-card custom-bg-2 my-2 bg-secondary">
         <div class="card-title">
-            <h4>{{post.title}}</h4>
+            <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}"> <br>
         </div>
         <div class="card-header">
-            <p class="">{{post.post | truncate(22)}}</p>
+            <p class="">{{post.post_body | truncate(22)}}</p>
             <div class="card-footer pl-0">
                 <div class="text-left">
                     <p class="pl-2 mb-1 badge badge-dark">By:@{{post.user.username}}</p>

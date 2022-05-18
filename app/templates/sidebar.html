@@ -1,67 +1,40 @@
-<link href="{{ url_for('static',filename='css/sidebar.css') }}" rel="stylesheet"/>
-<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-        <svg class="bi me-2" width="30" height="24">
-            <use xlink:href="#bootstrap"/>
-        </svg>
-        <span class="fs-5 fw-semibold">Collapsible</span>
-    </a>
-    <ul class="list-unstyled ps-0">
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#home-collapse" aria-expanded="true">
-                Home
-            </button>
-            <div class="collapse show" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Updates</a></li>
-                    <li><a href="#" class="link-dark rounded">Reports</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#dashboard-collapse" aria-expanded="false">
-                Dashboard
-            </button>
-            <div class="collapse" id="dashboard-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Weekly</a></li>
-                    <li><a href="#" class="link-dark rounded">Monthly</a></li>
-                    <li><a href="#" class="link-dark rounded">Annually</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#orders-collapse" aria-expanded="false">
-                Orders
-            </button>
-            <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">New</a></li>
-                    <li><a href="#" class="link-dark rounded">Processed</a></li>
-                    <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                    <li><a href="#" class="link-dark rounded">Returned</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="border-top my-3"></li>
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#account-collapse" aria-expanded="false">
-                Account
-            </button>
-            <div class="collapse" id="account-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">New...</a></li>
-                    <li><a href="#" class="link-dark rounded">Profile</a></li>
-                    <li><a href="#" class="link-dark rounded">Settings</a></li>
-                    <li><a href="#" class="link-dark rounded">Sign out</a></li>
-                </ul>
-            </div>
-        </li>
-    </ul>
+<link href="{{url_for('static',filename='css/sidebar.css')}}" rel="stylesheet" />
+<div class="flex-shrink-0 p-3 bg-primary text-center" style="width: 280px;">
+  <a href="" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none text-dark border-bottom">
+    <svg class="bi me-2" width="30" height="24">
+      <use xlink:href="#bootstrap" />
+    <span class="btn btn-secondary">Home</span>
+    </svg>
+  </a>
+  <!-- profile image -->
+  <div>
+    <img src="" class='bg-dark' alt="" 
+    style="width:150px;
+    height:150px;
+    border-radius:50%;
+     "> <br>
+     <span class="fs-5 fw-semibold text-dark">@username</span> <br>
+     <span class="fs-5 fw-semibold text-dark">Area Code</span> 
+  </div>
+  <ul class="list-unstyled ps-0">
+    <h2></h2>
+    <div class="">
+      <a class="btn btn-light m-2" href="{{url_for('posts.new_post')}}">New Post</a> <br>
+      <a class="btn btn-light m-2" href="">Posts</a>
+    </div>
+    <li class="border-top my-3"></li>
+    <li class="mb-1">
+      <button class="btn btn-dark btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+        data-bs-target="#account-collapse" aria-expanded="false">
+        My Profile
+      </button>
+      <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Profile</a></li>
+          <li><a href="#" class="link-dark rounded">Settings</a></li>
+          <li><a href="#" class="link-dark rounded">Sign out</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
 </div>

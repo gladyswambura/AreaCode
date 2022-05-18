@@ -11,6 +11,7 @@ login_manager.login_view = 'auth.login'
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 
+
 def create_app(config_name):
     app = Flask(__name__)
 
@@ -29,11 +30,16 @@ def create_app(config_name):
     
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
-    
+
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+
+    from app.posts.views import posts
+    app.register_blueprint(posts)
+
+
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint,url_prefix = '/authenticate')
-  
+    app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
+
     return app

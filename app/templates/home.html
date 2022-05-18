@@ -1,19 +1,14 @@
 {% extends "base.html" %}
-{% import "post_macro.html" as macro %}
+{% import "home_macro.html" as macro %}
 {% block styles %} {{super()}}
-<link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet" />
+<link href="{{url_for('static',filename='css/home.css')}}" rel="stylesheet" />
 {% endblock %}
 {% block body %} {% block content %}
 <div class="container-fluid">
-  <div class="text-center">
-    {% block navbar %} {% include
-      "navbar.html" %} {% endblock %}
-    <marquee class="text-primary">Welcome to Area Code</marquee>
-  </div>
   <!-- to display post about me etc -->
   <section class="">
     <div class="row">
-      <div class="col-md-2 text-white bg-dark p-3">
+      <div class="col-md-2 text-white bg-primary p-3">
         {% block sidebar %} {% include
           "sidebar.html" %} {% endblock %}
         <h2></h2>
@@ -23,10 +18,15 @@
           <a class="btn btn-light m-2" href="">Posts</a>
         </button>
       </div>
-      <div class="col-md-8 text-center bg-primary">
-        <h2>posts</h2>
-        <div class="bg-light">
-          {{macro.display_posts(posts, commentform, current_user)}}
+      <div class="col-md-8 text-center bg-white">
+        <p class="text-dark">Hello Username! What's happening in Ngong Today?</p>
+        <hr>
+        <div class="container d-flex">
+          <div class="text-center" 
+          style="width:100%;
+          height:30vh">
+            {{macro.display_posts(posts, commentform, current_user)}}
+          </div>
         </div>
       </div>
       <div class="col-md-2 bg-dark">
@@ -40,16 +40,6 @@
 
     </div>
   </section>
-  <!-- subscribe -->
-  <!-- <div class="form-group border text-center p-3 m-3" id="subscribe" style="    background-color: hsl(273, 88%, 48%)!important;
-"  >
-    Subscribe to our monthly newsletter 
-    <input type="text" placeholder="Email...">
-    <input type="button" class="btn btn-primary" value="Subscribe">
-  </div> -->
-  <section>
-
-
 </div>
 
 {% endblock %} {% endblock %}

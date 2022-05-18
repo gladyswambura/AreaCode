@@ -25,33 +25,22 @@ def register():
 
 
 # Login route
-@auth.route("/login", methods=["POST"])
+@auth.route("/login", methods=["GET", "POST"])
 def login():
     login_form = LoginForm()
-    if request.method == 'POST':
-        form = request.form
-        username = form.get('username')
-        password = form.get('password')
-        print(username)
-        user = User.query.filter_by(username=username).first()
-        if user is None:
-            error = 'A user with that username  does not exist'
-            return render_template('auth/login.html')
-
-        is_correct_password = user.check_password(password)
-        print(is_correct_password)
-        if not is_correct_password:
-            error = 'A user with that password does not exist'
-            return render_template('auth/login.html')
-        else:
-            login_user(user)
-            return redirect(url_for('home.home'))
-
-    return render_template('auth/login.html', login_form=login_form)
-
+    if login_form.validate_on_submit():
+        user = User.query.filter_by(email = login_form.email.data).first()
+        if user is not None and user.verify_password(login_form.password.data):
+            login_user(user, login_form.remember.data)
+            return redirect(url_for("home.homepage"))
+        
+        flash("Invalid username or password")
+        
+    title = "Login"
+    return render_template("auth/login.html", login_form = login_form, title = title)
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.index")) @ auth.route('/logout')
+    return redirect(url_for("main.index"))

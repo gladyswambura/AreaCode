@@ -6,8 +6,9 @@
 
          <h4 class="text-white text-center">Create your Post</h4> <br>
         <div class="row">
-       
-        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <a href="{{url_for('home.homepage')}}"> Home</a>
+        </div>
         
         <div class="col-md-8">
            <div class="card">
@@ -35,25 +36,19 @@
                                 {{ form.picture(class="form-control-file") }}
                                 {% if form.picture.errors %}
                                     {% for error in form.picture.errors %}
-                                        <span class="text-danger">{{ error }}</span></br>
+                                        <span class="text-danger">{{ error }}</span>
+                                    </br>
                                     {% endfor %}
                                 {% endif %}
                             </div>
                        
                     </fieldset>
-                    
-              
                </div>
            </div>
-
-
            <div class="form-group mt-4">
             {{ form.submit(class="btn btn-white") }}
         </div>
         </div>
-
-        
-
     </form>
         <div class="col-md-2"></div>
         </div>
@@ -61,12 +56,22 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-             
                 {% for post in posts %}
                 <div class="card mt-2">
-                    <div class="card-body">
-                        <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}">
-                        {{post.content}}
+                    <div class="card-body">  
+                        <p class="fw-3"> <strong>
+                            {{post.post_body}}
+                        </strong>
+                        </p>                      
+                         <br>
+                        <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}"> <br>
+                        <p>
+                        
+                        <strong>
+                         By:@{{post.post_by}}
+                        </strong>
+                        {{post.post_created.strftime("%b, %d, %Y")}}
+                        </p>
                     </div>
                 </div>
                 

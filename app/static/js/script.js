@@ -1,3 +1,8 @@
+// new post
+const toggleCreatePost = function(){
+    document.getElementById('createpost').click();
+}
+
 // like and dislike logic
 $(document).ready(function() {
     $('.likes').click(toggleLike);
