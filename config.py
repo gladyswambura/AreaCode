@@ -1,12 +1,15 @@
 import os
 
+
 class Config():
-    SECRET_KEY = os.environ.get('SECRET_KEY') 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/areacode'
-    DEBUG=True
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost/areacode'
+    DEBUG = True
+
 
 class ProdConfig(Config):
     '''
@@ -15,6 +18,7 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
+
 
 class TestConfig(Config):
     '''
@@ -31,6 +35,7 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
+
 
 config_options = {
     'development': DevConfig,

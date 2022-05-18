@@ -1,12 +1,20 @@
+<<<<<<< HEAD
     {% extends 'baselogin.html'%}
     {% extends 'base.html' %}
     {% import 'bootstrap/wtf.html' as wtf %}
     
     {% block content%}
+=======
+{%extends "base.html"%}
+{%import "bootstrap/wtf.html" as wtf%}
+{%block content%}
+<br><br><br>
+<div class="container">
+>>>>>>> 1544c4f07dbe72ba189c9fff50e855e78d8740cb
     <div class="container">
-        <br><br><br><br><br><br>
         <div class="row">
             <div class="col-md-2"></div>
+<<<<<<< HEAD
 
             <div class=" card row"
                 style="width: 60rem; height: 40rem; padding: 40px; background-image: url('/static/loginimages/loginimage.jpeg')">
@@ -35,10 +43,25 @@
                     <small class="text-center">Not a member? <a href="{{url_for('auth.register')}}"><button
                                 class="btn btn-md btn-secondary">Sign
                                 Up</button></a></small>
+=======
+            <div class="col-md-8">
+                {%for message in get_flashed_messages()%}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">&times;</button>
+>>>>>>> 1544c4f07dbe72ba189c9fff50e855e78d8740cb
                 </div>
+                {%endfor%}
+                {{wtf.quick_form(login_form)}}
+                <p class="text-center">Not a member? <a href="{{url_for('auth.register')}}"><button class="btn btn-md btn-secondary">Sign Up</button></a></p>
             </div>
             <div class="col-md-2"></div>
         </div>
     </div>
+<<<<<<< HEAD
     </div>
     {% endblock %}
+=======
+</div>
+{%endblock%}
+>>>>>>> 1544c4f07dbe72ba189c9fff50e855e78d8740cb

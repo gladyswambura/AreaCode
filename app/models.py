@@ -1,6 +1,6 @@
 from . import db
 from datetime import datetime
-from . import db, login_manager
+from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -33,9 +33,7 @@ class User(UserMixin, db.Model, Crud):
     post = db.relationship('Post', backref='user', lazy=True)
     comment = db.relationship('Comment', backref='user', lazy=True)
     
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+
     
     
     @property
@@ -47,10 +45,15 @@ class User(UserMixin, db.Model, Crud):
         self.pass_secure = generate_password_hash(password)
     
     def verify_password(self,password):
-        return check_password_hash(self.password,password)
+        return check_password_hash(self.pass_secure,password)
 
     def __repr__(self):
         return f'User {self.username}'
+    
+# class Anonymous(AnonymousUserMixin):
+#     def __init__(self):
+#     self.username = 'Guest'    
+
       
 class Role(db.Model, Crud):
     __tablename__ = 'roles'
@@ -66,11 +69,11 @@ class Post(db.Model, Crud):
     __tablename__ = 'post'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_img = db.Column(db.String(80), nullable=False)
+    user_img = db.Column(db.String(80), nullable=True)
     post_body = db.Column(db.String(200), nullable=False)
     post_created = db.Column(db.DateTime, default=datetime.now())
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     post_likes = db.relationship('Likes', backref='post', lazy=True)
     post_dislikes = db.relationship('Dislikes', backref='post', lazy=True)
     post_comments = db.relationship('Comment', backref='post', lazy=True)
