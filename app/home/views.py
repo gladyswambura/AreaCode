@@ -4,6 +4,13 @@ from .forms import PostForm,CommentForm
 from ..models import Post, User, Comment
 from sqlalchemy import desc
 from flask_login import current_user, login_required
+from .. import login_manager
+
+    
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 
 @home.route('/home')

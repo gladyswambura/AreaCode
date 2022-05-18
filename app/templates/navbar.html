@@ -21,7 +21,7 @@
        
             <div class="navbar-collapse collapse " style="float:right" >
                 {% if current_user.is_authenticated %}
-                <a class="navbar-brand" style="font-size: 14px; " href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a>
+                <a class="navbar-brand" style="font-size: 14px; " href="{{url_for('main.index',uname=current_user.username)}}">Profile</a>
                 <a class=" btn my-2 my-sm-0" href="{{url_for('auth.logout')}}" style="margin: 10px;">Logout</a>
 
                 
