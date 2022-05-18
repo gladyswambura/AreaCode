@@ -12,16 +12,30 @@ class DevConfig(Config):
 
 
 class ProdConfig(Config):
-    uri = os.getenv('DATABASE_URL')
-    if uri and uri.startswith('postgres://'):
-        uri = uri.replace('postgres://', 'postgresql://', 1)
-
-    SQLALCHEMY_DATABASE_URI = uri
+    '''
+    Production  configuration child class
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
 
 
 class TestConfig(Config):
-    pass
+    '''
+    Testing configuration child class
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
 
+class DevConfig(Config):
+    '''
+    Development  configuration child class
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
+    DEBUG = True
 
 config_options = {
     'development': DevConfig,

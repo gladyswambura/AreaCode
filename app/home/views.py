@@ -29,6 +29,11 @@ def all_posts(posts):
     return posts
 
 
+@home.route('/')
+@login_required
+def profile(user_id):
+    return render_template
+
 @login_required
 @home.route('/<int:user_id>/posts')
 def posts(user_id):

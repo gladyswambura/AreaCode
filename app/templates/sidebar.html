@@ -24,10 +24,11 @@
     </div>
     <li class="border-top my-3"></li>
     <li class="mb-1">
+      <a href="{{url_for('home.profile', user_id=current_user.id)}}">
       <button class="btn btn-dark btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-        data-bs-target="#account-collapse" aria-expanded="false">
+        data-bs-target="#account-collapse"  aria-expanded="false">
         My Profile
-      </button>
+      </button></a>
       <div class="collapse" id="account-collapse">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><a href="#" class="link-dark rounded">Profile</a></li>
