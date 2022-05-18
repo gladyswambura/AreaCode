@@ -1,4 +1,3 @@
-env/
-__pycache__/
-unusedcode.html
-.idea/
+blogvirtual/
+*.pyc
+__pychache__/

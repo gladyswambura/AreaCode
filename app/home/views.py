@@ -11,6 +11,12 @@ from .. import login_manager
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+@home.route('/<int:user_id>/profile', methods=['GET', 'POST'])
+@login_required
+def profile(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    return render_template ('profile/profile.html', user=user)
+
 
 @home.route('/home')
 @login_required
@@ -28,6 +34,8 @@ def all_posts(posts):
         for comment in post.post_comments:
             comment.user = User.query.filter_by(id=comment.user.id).first()
     return posts
+
+
 
 
 @login_required
