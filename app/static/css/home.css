@@ -20,11 +20,11 @@ body{
     font-size:22px;
     font-weight:600;
 }
-.card-body{
+/* .card-body{ */
     /* justify-content:center; */
     /* align-content: center; */
     /* text-align: center; */
-}
+/* } */
 .card-text{
     padding-top: 30px;
     line-height: 50px;
