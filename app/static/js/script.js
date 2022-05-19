@@ -1,7 +1,14 @@
+document.getElementById('postcomms').addEventListener('click', makeComment);
+function makeComment(){
+    alert("Please kill me")
+}
+
 // new post
 const toggleCreatePost = function(){
     document.getElementById('createpost').click();
 }
+
+//check js
 
 // like and dislike logic
 $(document).ready(function() {
@@ -28,14 +35,14 @@ $(document).ready(function() {
 const toggleLike = event => {
     const user_id = $('.user_id').attr('id')
     if (user_id) {
-        const[like, blog_id] = event.currentTarget.id.split(' ')
-        return likesDislikes(blog_id.slice(-1),like)
+        const[like, post_id] = event.currentTarget.id.split(' ')
+        return likesDislikes(post_id.slice(-1),like)
     }
-    return alert('You must be logged in to like or dislike a blog')
+    return alert('You must be logged in to like or dislike a post')
 }
 
-const likesDislikes = (blog_id, like) => {
-    const likes = $(`.total-likes${blog_id}`);
+const likesDislikes = (post_id, like) => {
+    const likes = $(`.total-likes${post_id}`);
     const dislikes = $(`.total-dislikes${blog_id}`);
     const url = `/blog/${like}/${blog_id}`;
     $.post(url, function (data) {
@@ -47,29 +54,29 @@ const likesDislikes = (blog_id, like) => {
 
 const createComment = event => {
     event.preventDefault()
-    const blog_id = event.currentTarget.id.slice(-1,12)
-    const url = `/comment/${blog_id}/add`
-    const form = $('#commentForm' + blog_id)
+    const post_id = event.currentTarget.id.slice(-1,12)
+    const url = `/comment/${post_id}/add`
+    const form = $('#commentForm' + post_id)
     const data = form.serialize()
     $.post(url, data, function (newComment) {
     const comment = `<p class="pl-3"><span class="badge badge-secondary custom-color">By @${newComment.user}</span> <small>${newComment.commentbody}</small></p>`
-      $(`.comment-section${blog_id}`).prepend(comment)
+      $(`.comment-section${post_id}`).prepend(comment)
       return form.trigger('reset')
     } )
   }
 
 // const postComment = comm => {
 //     comm.preventDefault();
-//     const blog_id = comm.CurrentTarget.id.slice(-1,12)
-//     const form = $('#commentForm' + blog_id)
+//     const post_id = comm.CurrentTarget.id.slice(-1,12)
+//     const form = $('#commentForm' + post_id)
 //     const comment = form.serialize()
-//     const url ='/comments/' + blog_id + '/newcomment'
+//     const url ='/comments/' + post_id + '/newcomment'
 //     $.post(url, comment, function(newComment){
 //         const comment = `<div class="comment"><p>' + 
 //         By @${newComment.user.username}</p>
 //         <p>${newComment.comment}</p>
 //         </div>`
-//         $(`.comment-section${blog_id}`).prepend(comment)
+//         $(`.comment-section${post_id}`).prepend(comment)
 //             return form.trigger('reset')
 //     })
 // }
