@@ -1,6 +1,7 @@
-from flask import render_template,current_app, url_for, flash, abort, jsonify, redirect
+from .. import db, photos
+from flask import render_template,current_app, url_for, flash, abort, jsonify, request, redirect
 from . import home
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, UpdateProfile
 from app.auth.forms import RegistrationForm
 from ..models import Post, User, Comment, Likes
 from sqlalchemy import desc
@@ -53,11 +54,11 @@ def add_comment(post_id):
         # return redirect(url_for('index.html', user_id=current_user.id))
     return render_template('index.html', title=title)
 
-@home.route('/<int:user_id>/profile', methods=['GET', 'POST'])
+@home.route('/user/profile', methods=['GET', 'POST'])
 @login_required
-def profile(user_id):
+def profile():
     form = RegistrationForm()
-    users = User.query.filter_by(id=user_id).first()
+    user = current_user
     if form.validate_on_submit():
         if form.profile_pic.data:
             picture_file = save_profile_picture(form.profile_pic.data)
@@ -67,7 +68,7 @@ def profile(user_id):
         db.session.add(user)
         db.session.commit()
         return render_template('profile/profile.html', user=user, form=form)
-    return render_template('profile/profile.html', users=users, form=form)
+    return render_template('profile/profile.html', user=user, form=form)
 
 
 
@@ -79,22 +80,26 @@ def save_profile_picture(form_picture):
     picture_path = os.path.join(current_app.root_path, 'static/photos', picture_fn)
     form_picture.save(picture_path)
     return picture_fn
-    
-    
-# Add like to post
-# @login_required
-# @home.route('/post/<string:like>/<int:post_id>', methods=['POST'])
-# def toggleLikes(like, post_id):
-#     new_like = Likes(user_id=current_user.id, post_id=post_id)
-#     new_like.toggleLike()
 
-#     likes = Likes.query.filter_by(post_id=post_id).count()
-#     return jsonify(likes)
-
-@home.route('/like/<int:post_id>', methods=['POST', 'GET'])
+@home.route('/user/updateprofile',methods= ['GET','POST'])
 @login_required
-def like(post_id):
-    post=Post.query.get(post_id)
-    new_like = Likes(post=post,like=1, user_id=current_user.id)
-    new_like.save()
-    return redirect(url_for('home.homepage'))
+def update_profile():
+    user = current_user
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('home.profile'))
+        
+    return render_template('profile/update_profile.html',form=form)
+
+@home.route('/user/pic',methods= ['GET','POST'])
+def update_pic(user_id):
+    user = User.query.filter_by(user_id=user_id).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic = path
+        db.session.commit()
+    return redirect(url_for('home.profile', user_id=user.user_id))

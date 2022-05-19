@@ -1,9 +1,13 @@
-from . import db
+
 from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin, current_user
 from app import login_manager
+from . import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
 
 
 class Crud():
@@ -11,15 +15,16 @@ class Crud():
         db.session.add(self)
         db.session.commit()
         return True
-        
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()
         return True
 
+
 class User(UserMixin, db.Model, Crud):
     __tablename__ = 'user'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
@@ -66,7 +71,7 @@ class User(UserMixin, db.Model, Crud):
 
 class Post(db.Model, Crud):
     __tablename__ = 'post'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     user_img = db.Column(db.String(80), nullable=True)
     post_body = db.Column(db.String(200), nullable=False)
@@ -85,34 +90,35 @@ class Post(db.Model, Crud):
 
 class Comment(db.Model, Crud):
     __tablename__ = 'comment'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     commenttext = db.Column(db.String(200), nullable=False)
-    created_at = db.Column(db.DateTime,default=datetime.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable=False)
-    
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+
     def delete(self):
-        post =Post.query.filter_by(id=self.post).first()
+        post = Post.query.filter_by(id=self.post).first()
         post.comments.remove(self)
         self.delete()
         return self.save()
-    
+
     # def update(self):
     #     comment = Comment.query.filter_by(id=self.id).first()
     #     comment.comment = self.comment
     #     return comment.save()
-    
+
+
 class Images(db.Model, Crud):
     __tablename__ = 'images'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
 class Likes(db.Model, Crud):
     __tablename__ = 'likes'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     likes = db.Column(db.Integer,default=1)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

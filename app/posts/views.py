@@ -4,8 +4,7 @@ from app import db
 from app.models import Post
 from app.posts.forms import PostForm
 from app.posts.utils import save_picture
-
-posts = Blueprint('posts', __name__)
+from . import posts
 
 
 @posts.route("/post/new", methods=['GET', 'POST'])

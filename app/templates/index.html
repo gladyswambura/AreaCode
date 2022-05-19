@@ -1,10 +1,5 @@
 {% extends 'base.html'%}
 
-<!-- Styles block -->
-{%block styles%} {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}" />
-{%endblock%}
-
 <body>
   <!-- Navbar block  -->
 
@@ -22,10 +17,9 @@
         url(../static/photos/areacodeback.jpeg);
       background-repeat: no-repeat;
       background-size: cover;
-      height: 88vh;
+      height:100vh;
       margin: 0px 0px;
       opacity: 0.9;
-      overflow:hidden;
     ">
     <div class="container pt-5 intro">
       <div class="card">

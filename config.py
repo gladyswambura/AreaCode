@@ -4,7 +4,8 @@ import os
 class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    UPLOADED_FOLDER =os.environ.get('UPLOADED_FOLDER')
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
+
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost/areacode'
