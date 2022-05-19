@@ -1,14 +1,14 @@
-from django import db
-from flask import render_template,current_app, url_for, flash, abort, jsonify
+from flask import render_template,current_app, url_for, flash, abort, jsonify, redirect
 from . import home
 from .forms import PostForm, CommentForm
 from app.auth.forms import RegistrationForm
-from ..models import Post, User, Comment
+from ..models import Post, User, Comment, Likes
 from sqlalchemy import desc
 from flask_login import current_user, login_required
 from PIL import Image
 import os
 import secrets
+from .. import db
 
 @home.route('/home')
 @login_required
@@ -80,3 +80,21 @@ def save_profile_picture(form_picture):
     form_picture.save(picture_path)
     return picture_fn
     
+    
+# Add like to post
+# @login_required
+# @home.route('/post/<string:like>/<int:post_id>', methods=['POST'])
+# def toggleLikes(like, post_id):
+#     new_like = Likes(user_id=current_user.id, post_id=post_id)
+#     new_like.toggleLike()
+
+#     likes = Likes.query.filter_by(post_id=post_id).count()
+#     return jsonify(likes)
+
+@home.route('/like/<int:post_id>', methods=['POST', 'GET'])
+@login_required
+def like(post_id):
+    post=Post.query.get(post_id)
+    new_like = Likes(post=post,like=1, user_id=current_user.id)
+    new_like.save()
+    return redirect(url_for('home.homepage'))

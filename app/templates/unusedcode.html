@@ -147,3 +147,32 @@ def profile(user_id):
         user.save()
         return redirect(url_for('main.profile', user_id=user_id))
     return render_template('profile/profile.html', user=user) -->
+
+    <!-- likes html from macro -->
+    <p class="ml-4 badge badge-secondary {% if user.id != post.author_id %}like {% endif %}"
+    id="like likes{{post.id}}">
+    <a href="/like/{{post.id}}">
+    <span class="count-likes{{post.id}}"  >
+        {{post.post_likes.count(0)}}
+        <i class="fas fa-2x fa-heart like-fa p-1 text-danger" id="heart">
+        </i>
+    </span>
+</a>
+</p>
+
+<!-- update profile ;code -->
+<h1>update profile</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+    <fieldset class="form-group">
+    <div class="form-group">
+        {{ form.profile_pic.label() }}
+        {{ form.profile_pic(class="form-control-file") }}
+        {% if form.profile_pic.errors %}
+        {% for error in form.profile_pic.errors %}
+        <span class="text-danger">{{ error }}</span>
+        </br>
+        {% endfor %}
+        {% endif %}
+    </div>
+</fieldset>
+</form>

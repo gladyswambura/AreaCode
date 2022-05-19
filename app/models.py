@@ -2,7 +2,7 @@ from . import db
 from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from app import login_manager
 
 
@@ -75,7 +75,6 @@ class Post(db.Model, Crud):
     post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     post_likes = db.relationship('Likes', backref='post', lazy=True)
     post_comments = db.relationship('Comment', backref='post', lazy=True)
-    post_pics = db.relationship('Images', backref='post', lazy=True)
     
     def delete(self):
         user = User.query.filter_by(id=self.author).first()
@@ -108,22 +107,39 @@ class Images(db.Model, Crud):
     __tablename__ = 'images'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    name = db.Column(db.String(80), nullable=False)
+    uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
 class Likes(db.Model, Crud):
     __tablename__ = 'likes'
     
     id = db.Column(db.Integer, primary_key=True)
+    likes = db.Column(db.Integer,default=1)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     
-    def toggleLike(self):
-        like = Likes.query.filter_by(
-            post_id=self.post_id, user_id=self.user_id).first()
-        if like is None:
-            self.save()
-        elif like:
-            like.delete()
-        return True
+    def like(self, post_id):
+        post_like = Likes(user=current_user, post_id=post_id)
+        post_like.save()
+        
+    @classmethod
+    def get_like(cls, id):
+        like = Likes.query.filter_by(post_id=id).all()
+        return like
+    
+    @classmethod
+    def all_likes(cls):
+        likes = Likes.query.order_by('post_id').all()
+        return likes
+    
+    
+    
+    # def toggleLike(self):
+    #     like = Likes.query.filter_by(
+    #         post_id=self.post_id, user_id=self.user_id).first()
+    #     if like is None:
+    #         self.save()
+    #     elif like:
+    #         like.delete()
+    #     return True
 

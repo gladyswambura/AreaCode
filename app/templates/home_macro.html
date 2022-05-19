@@ -5,16 +5,16 @@
     {% for post in posts %}
     <div class="card my-4 custom-bg-2 custom-card p-2 text-dark">
         <div class="float-left">
-        <div style="background-color:white ;
+            <div style="background-color:white ;
         width: 100px;
         height: 100px;
         border-radius: 50%
         ">
-        <!-- <img class="" src="{{ url_for('static', filename='photos/' + user.profile_pic)}}"> -->
-        <img class="" src="{{ url_for('static', filename='files/' + post.image_file)}}"> <br>
-        <br>
-        <!-- {{user.profile_pic}} -->
-        </div>
+                <!-- <img class="" src="{{ url_for('static', filename='photos/' + user.profile_pic)}}"> -->
+                <img class="" src="{{ url_for('static', filename='files/' + post.image_file)}}"> <br>
+                <br>
+                <!-- {{user.profile_pic}} -->
+            </div>
         </div>
 
         <div class="card-title">
@@ -25,8 +25,7 @@
                 <span class="">{{post.post_body}}</span>
                 <div class="card-body pt-1">
                     <p class="float-left">
-                        <small class="text-muted">By:</small><strong
-                            class="badge badge-dark">{{post.post_by}}</strong>
+                        <small class="text-muted">By:</small><strong class="badge badge-dark">{{post.post_by}}</strong>
                     </p>
                     <p class="float-right text-dark">
                         <small>
@@ -43,14 +42,13 @@
                 <i class="fas text-primary fa-comment-dots fa-2x"></i>
                 </a>
             </p>
-            <p class="ml-4 badge badge-secondary {% if user.id != post.author_id %}like {% endif %}"
-                id="like likes{{post.id}}">
-                <span class="count-likes{{post.id}}">
-                    {{post.likes|length}}
-                </span>
-                <i class="fas fa-2x fa-heart like-fa p-1 text-danger"> </i>
-            </p>
-           
+            <a href="/like/{{post.id}}" id=""
+            ><span class="badge badge-secondary">
+                <i class="fas fa-2x fa-heart like-fa text-danger" id="heart">
+                </i> {{post.post_likes | length}}
+            </span></a
+          >
+
         </div>
         <div id="post{{post.id}}" class="collapse" data-parent="#postAccordion">
             {% if user.is_authenticated and user.id != post.author_id %}

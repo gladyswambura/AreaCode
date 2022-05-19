@@ -10,6 +10,7 @@
             <form method="POST" action="" enctype="multipart/form-data">
                 <fieldset class="form-group">
                 <div class="form-group">
+                    {{form.hidden_tag()}}
                     {{ form.profile_pic.label() }}
                     {{ form.profile_pic(class="form-control-file") }}
                     {% if form.profile_pic.errors %}
@@ -19,7 +20,11 @@
                     {% endfor %}
                     {% endif %}
                 </div>
+                <div class="form-group mt-4">
+                    {{ form.submit(class="btn btn-white") }}
+                </div>
             </fieldset>
+            
             </form>
         </div>
     </div>
@@ -29,13 +34,13 @@
                 <div class="card-body">
                     <!-- Profilepic -->
                     <div class="text-center">
-                        <img class="" src="{{ url_for('static', filename='photos/' + user.profile_pic) }}"
+                        <img class="" src="{{ url_for('static', filename='photos/' +image.name) }}"
                             style="width:150px; height:150px; border-radius:50%;margin-top: -30px;">
                         <br><br>
                     </div>
                     <h4 class="card-subtitle mb-2 text-active text-center">{{current_user.username}}</h4>
                     <br>
-                    <h6 class="card-subtitle mb-2 text-active text-center">Location</h6>
+                    <h6 class="card-subtitle mb-2 text-active text-center">{{current_user.locations}}</h6>
                     <br><br>
                     <textarea id="txtid" name="txtname" rows="10" cols="50" maxlength="200" placeholder="Bio">
                         {%if current_user.user_bio %}
