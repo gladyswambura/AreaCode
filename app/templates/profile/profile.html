@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% import 'home_macro.html' as macro%}
+
+{% block content %}
+<section>
+    <!-- profile code -->
+    <div class="container">
+        <br><br><br><br>
+        <div class="card">
+            <div class="card-body">
+                <p class="nav-item float-end">
+                    <a class="nav-link active text-white"
+                        href="{{url_for('home.homepage', user_id=current_user.id)}}">Home</a>
+                </p>
+                <p class="nav-item float-end">
+                    <a class="btn btn-light m-2" href="{{url_for('posts.new_post')}}">New Post</a>
+                </p>
+                <p class="nav-item float-end">
+                    <a class="nav-link active text-white" href="{{url_for('auth.logout')}}">Logout</a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card position-fixed" style="width: 35rem;">
+                    <div class="card-body">
+                        <!-- Profilepic -->
+                        <div class="text-center">
+                            {% if current_user.profile_pic %}
+                            <img src="{{url_for('static',filename=current_user.profile_pic)}}" alt=""
+                                class="img-thumbnail">
+                            {%else%}
+                            <p>No profile picture</p>
+                            {% endif %}
+                        </div>
+                        <h4 class="card-subtitle mb-2 text-active text-center">{{current_user.username}}</h4>
+                        <br>
+                        <h6 class="card-subtitle mb-2 text-active text-center">{{current_user.locations}}</h6>
+                        <br><br>
+                        <textarea id="txtid" name="txtname" rows="4" cols="40" maxlength="200" placeholder="Bio">
+                        {%if current_user.user_bio %}
+                        <p>{{user.bio}}</p>
+                        {% else %}
+                        <p>No bio</p>
+                        {%endif%}
+                    </textarea>
+                        <br><br><br><br>
+                        {%if current_user.is_authenticated%}
+                        <hr>
+                        <div class="profile-usermenu sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="{{url_for('home.update_profile')}}" class="btn btn-primary"><i
+                                            class="fas fa-user-edit"></i>Profile Settings</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {%endif%}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="card-title text-center">POSTS</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-9">
+                            <div class="profile-content">
+                                {% if posts %}
+                                {{macro.display_latestposts(posts, commentform, current_user)}}
+                                {% else %}
+                                <p>No posts found</p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+<!-- <section class=text-dark >
+<div>
+<h1>{{user.username}}</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if current_user.profile_pic %}
+            <img src="{{url_for('static',filename=current_user.profile_pic)}}" alt="" class="img-thumbnail">
+            {%else%}
+            <p>No profile picture</p>
+            {% endif %}
+            {% if user == current_user %}
+            <a href="{{url_for('home.update_profile')}}" class="btn btn-primary">Edit Profile</a>
+            <form action="{{url_for('home.update_profile')}}" method="post"
+                enctype="multipart/form-data">
+                <input type="file" name="photo" class="form-control" required>
+                <input type="submit">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</section> -->

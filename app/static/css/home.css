@@ -10,21 +10,21 @@ body{
     color:white;
 }
 .card{
-    border: 2px solid #5b5f63;
-    box-shadow: 2px 2px 2px 2px #46464d;
-    background-color: yellow;
+    /* border: 2px solid #5b5f63; */
+    box-shadow: 2px 2px 2px 2px #000000;
+    background-color: rgba(23, 87, 176, 0.669);
     opacity: 0.8;
     border-radius:15px;
-    padding-top: 30px;
+    /* padding-top: 30px; */
     color:white;
     font-size:22px;
-    font-weight:600;
+    font-weight:200;
 }
-.card-body{
+/* .card-body{ */
     /* justify-content:center; */
     /* align-content: center; */
     /* text-align: center; */
-}
+/* } */
 .card-text{
     padding-top: 30px;
     line-height: 50px;
@@ -32,6 +32,6 @@ body{
 span{
     color:#020202;
     font-size: 20px;
-    font-weight: 400
+    font-weight: 300
 }
 

@@ -1,8 +1,9 @@
-from . import db
+
 from datetime import datetime
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
 
 
 class Crud():
@@ -27,16 +28,14 @@ class User(UserMixin, db.Model, Crud):
     pass_secure = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
     locations = db.Column(db.String(255), nullable=False)
-    profile_pic = db.Column(db.String(80), nullable=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    user_bio = db.Column(db.String(255), nullable=True)
+    profile_pic = db.Column(db.String(80), nullable=False, default=[('default.jpg'),('default.png'),('default.jpeg')])
     user_created = db.Column(db.DateTime, default=datetime.now())
     user_updated = db.Column(db.DateTime, default=datetime.now())
     post = db.relationship('Post', backref='user', lazy=True)
     comment = db.relationship('Comment', backref='user', lazy=True)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    
 
     @property
     def password(self):
@@ -47,26 +46,24 @@ class User(UserMixin, db.Model, Crud):
         self.pass_secure = generate_password_hash(password)
     
     def verify_password(self,password):
-        return check_password_hash(self.password,password)
+        return check_password_hash(self.pass_secure,password)
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+   
+    def add_comment(self, comment):
+        self.comments.append(comment)
+        return self.save()
+
+    def add_post(self, post):
+        self.posts.append(post)
+        return self.save()
+     
     def __repr__(self):
         return f'User {self.username}'
-    
-# class Anonymous(AnonymousUserMixin):
-#     def __init__(self):
-#     self.username = 'Guest'    
-
-      
-class Role(db.Model, Crud):
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    users = db.relationship('User', backref='role', lazy="dynamic")
-
-    def __repr__(self):
-        return f'User {self.name}'
-
+        
 
 class Post(db.Model, Crud):
     __tablename__ = 'post'
@@ -78,10 +75,15 @@ class Post(db.Model, Crud):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     post_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     post_likes = db.relationship('Likes', backref='post', lazy=True)
-    post_dislikes = db.relationship('Dislikes', backref='post', lazy=True)
     post_comments = db.relationship('Comment', backref='post', lazy=True)
     post_pics = db.relationship('Images', backref='post', lazy=True)
-
+    
+    def delete(self):
+        user = User.query.filter_by(id=self.author).first()
+        user.posts.remove(self)
+        self.delete()
+        return self.save()
+   
 
 class Comment(db.Model, Crud):
     __tablename__ = 'comment'
@@ -118,11 +120,13 @@ class Likes(db.Model, Crud):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    
+    def toggleLike(self):
+        like = Likes.query.filter_by(
+            post_id=self.post_id, user_id=self.user_id).first()
+        if like is None:
+            self.save()
+        elif like:
+            like.delete()
+        return True
 
-
-class Dislikes(db.Model, Crud):
-    __tablename__ = 'dislikes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))

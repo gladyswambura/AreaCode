@@ -3,8 +3,9 @@
   <a href="" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none text-dark border-bottom">
     <svg class="bi me-2" width="30" height="24">
       <use xlink:href="#bootstrap" />
-    <span class="btn btn-secondary">Home</span>
+    
     </svg>
+    <button class="btn btn-secondary">Home</button>
   </a>
   <!-- profile image -->
   <div>
@@ -12,9 +13,10 @@
     style="width:150px;
     height:150px;
     border-radius:50%;
-     "> <br>
-     <span class="fs-5 fw-semibold text-dark">@username</span> <br>
-     <span class="fs-5 fw-semibold text-dark">Area Code</span> 
+     ">
+      <br>
+     <span class="fs-5 fw-semibold text-dark">@{{current_user.username}}</span> <br>
+     <p class="fs-5 fw-semibold">{{current_user.firstname}} {{current_user.lastname}}</p> 
   </div>
   <ul class="list-unstyled ps-0">
     <h2></h2>
@@ -24,17 +26,17 @@
     </div>
     <li class="border-top my-3"></li>
     <li class="mb-1">
+      <a href="{{url_for('home.profile')}}">
       <button class="btn btn-dark btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-        data-bs-target="#account-collapse" aria-expanded="false">
+        data-bs-target="#account-collapse"  aria-expanded="false">
         My Profile
-      </button>
-      <div class="collapse" id="account-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">Profile</a></li>
-          <li><a href="#" class="link-dark rounded">Settings</a></li>
-          <li><a href="#" class="link-dark rounded">Sign out</a></li>
-        </ul>
-      </div>
+      </button></a>
+      <a href="{{url_for('auth.logout')}}">
+      <button class="btn btn-dark btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+      data-bs-target="#account-collapse"  aria-expanded="false">
+      Log Out
+    </button></a>
+  
     </li>
   </ul>
 </div>
