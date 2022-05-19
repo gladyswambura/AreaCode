@@ -29,10 +29,11 @@ def all_posts(posts):
     return posts
 
 
-@home.route('/')
+@home.route('/profile')
 @login_required
 def profile(user_id):
-    return render_template
+    user= User.query.filter_by(user_id=user_id).first()
+    return render_template('profile/profile.html,', user=user_id)
 
 @login_required
 @home.route('/<int:user_id>/posts')
