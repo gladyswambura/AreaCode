@@ -1,0 +1,20 @@
+<h1>update profile</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+    <fieldset class="form-group">
+    <div class="form-group">
+        {{ form.profile_pic.label() }}
+        {{ form.profile_pic(class="form-control-file") }}
+        {% if form.profile_pic.errors %}
+        {% for error in form.profile_pic.errors %}
+        <span class="text-danger">{{ error }}</span>
+        </br>
+        {% endfor %}
+        {% endif %}
+    </div>
+</fieldset>
+</form>
+
+{% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf %} {% block
+    content %}
+    <div class="container">{{wtf.quick_form(form)}}</div>
+    {% endblock %}

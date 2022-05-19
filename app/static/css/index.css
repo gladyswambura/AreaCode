@@ -50,7 +50,7 @@ body{
     background: rgba(0,0,0,0.6);
     opacity: 0.8;
     border-radius:15px;
-    padding-top: 30px;
+    padding-top: 10px;
     color:white;
     font-size:22px;
     font-weight:600;
@@ -61,11 +61,11 @@ body{
     text-align: center;
 }
 .card-text{
-    padding-top: 30px;
+    padding-top: 10px;
     line-height: 50px;
 }
 .registerbttn{
-    padding: 60px 0px;
+    padding: 40px 0px;
     
 }
 .reg{
