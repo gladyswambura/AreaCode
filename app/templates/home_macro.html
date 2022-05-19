@@ -1,20 +1,23 @@
+{% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %} {% macro display_posts(posts,
     commentform, user) %}
 <div class="accordion" id="postsaccordion">
     {% for post in posts %}
     <div class="card my-4 custom-bg-2 custom-card p-2 text-dark">
         <div class="float-left">
-        <div style="background-color:white ;
+            <div style="background-color:white ;
         width: 100px;
         height: 100px;
         border-radius: 50%
         ">
-            {{post.user_img}}
+        <img class="" src="{{ url_for('static', filename='files/' + post.image_file)}}" style="width:100px; height:100px; border-radius:50% ">
+        <p class="text-center">@{{post.user.username}}</p>
+        <!-- {{user.profile_pic}} -->
         </div>
         </div>
 
         <div class="card-title">
-            <img class="" src="{{ url_for('static', filename='files/' + post.image_file) }}"> <br>
+            <img class="" src="{{ url_for('static', filename='files/' + post.image_file)}}" > <br>
         </div>
         <div class="card-header" id="{{post.id}}">
             <div class="" data-toggle="collapse" data-target="#post{{post.id}}">
@@ -22,7 +25,7 @@
                 <div class="card-body pt-1">
                     <p class="float-left">
                         <small class="text-muted">By:</small><strong
-                            class="badge badge-dark">{{post.post_by}}</strong>
+                            class="badge badge-dark">{{post.username}}</strong>
                     </p>
                     <p class="float-right text-dark">
                         <small>
@@ -34,19 +37,18 @@
             </div>
         </div>
         <div id="postcomms">
-            <p class="badge">
+            <p class="badge badge-secondary">
                 {{post.post_comments | length}}
                 <i class="fas text-primary fa-comment-dots fa-2x"></i>
                 </a>
             </p>
-            <p class="ml-4 badge custom-card {% if user.id != post.author_id %}like {% endif %}"
-                id="like likes{{post.id}}">
-                <span class="count-likes{{post.id}}">
-                    {{post.likes|length}}
-                </span>
-                <i class="fas fa-2x fa-heart like-fa p-1 text-danger"> </i>
-            </p>
-           
+            <a href="/like/{{post.id}}" id=""
+            ><span class="badge badge-secondary">
+                <i class="fas fa-2x fa-heart like-fa text-danger" id="heart">
+                </i> {{post.post_likes | length}}
+            </span></a
+          >
+
         </div>
         <div id="post{{post.id}}" class="collapse" data-parent="#postAccordion">
             {% if user.is_authenticated and user.id != post.author_id %}
@@ -64,14 +66,13 @@
             <div class="custom-bg-2 comment-section{{post.id}}">
                 {% for comment in post.post_comments %}
                 <p class="pl-3">
-                    <span class="badge badge-secondary custom-color">By@{{comment.username}}</span>
+                    <span class="badge badge-secondary custom-color">By@{{comment.user.username}}</span>
                     <small>{{comment.commenttext}}</small>
                 </p>
                 {% endfor %}
             </div>
         </div>
     </div>
-
     {% endfor %}
 </div>
 {%endmacro%}
@@ -86,7 +87,7 @@
             <p class="">{{post.post_body | truncate(22)}}</p>
             <div class="card-footer pl-0">
                 <div class="text-left">
-                    <p class="pl-2 mb-1 badge badge-dark">By:@{{post.username}}</p>
+                    <p class="pl-2 mb-1 badge badge-dark">By:@{{post.user.username}}</p>
                     <p class="small mb-1 float-right">
                         <strong>{{post.post_created.strftime("%b %d, %Y")}}</strong>
                     </p>

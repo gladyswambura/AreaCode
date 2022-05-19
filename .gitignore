@@ -1,3 +1,4 @@
 blogvirtual/
 *.pyc
 __pychache__/
+virt/

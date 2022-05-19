@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% import "home_macro.html" as macro %}
 {% block styles %} {{super()}}
-<link href="{{url_for('static',filename='css/home.css')}}" rel="stylesheet" />
 {% endblock %}
 {% block body %} {% block content %}
 <div class="container-fluid">
@@ -13,7 +12,7 @@
           "sidebar.html" %} {% endblock %}
       </div>
       <div class="col-md-8 text-center bg-white">
-        <p class="text-dark">Hello! What's happening in Today?</p>
+        <p class="text-dark">Hello {{current_user.username}}! What's happening in {{current_user.locations}} Today?</p>
         <hr>
         <div class="container d-flex">
           <div class="text-center" 
@@ -23,8 +22,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2 bg-dark">
-        <button id="popbtn" class="btn btn-danger">Popular</button>
+      <div class="col-md-2 bg-dark d-none d-md-block">
+        <button id="popbtn" class="btn btn-danger ">Popular</button>
         <h2 >Popular </h2>
         <div class="form-group">
           <label for=""></label>

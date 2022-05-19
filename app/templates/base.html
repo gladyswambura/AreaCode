@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,35 +11,30 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/6.1.1.0/css/font-awesome.min.css">
-  <title>AreaCode</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
   <link rel="stylesheet" href="{{url_for( 'static', filename='css/bootstrap.min.css')}}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}" /> 
+  <link rel="stylesheet" href="{{url_for('static',filename='css/home.css')}}"  />
   {% if title %}
   <title>{{ title }}</title>
   {% else %}
   <title>Area Code</title>
   {% endif %}
-  {% extends 'bootstrap/base.html'%}
 </head>
-
-<!-- Navbar block  -->
-{% block navbar %}
-{% include 'navbar.html' %}
-{% endblock %}
-
 <body>
+
+
   {% block body %}
   {% block content %}
   {% endblock %}
   {% endblock %}
-  <script src="{{url_for('static', filename='js/jquery-3.6.0.js')}}"></script>
-  <script src="{{url_for('static', filename='js/popper-2.11.2.js')}}"></script>
-  <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-  <script src="{{url_for('static', filename='js/script.js')}}"></script>
-  <script src="{{url_for('static', filename='js/test.js')}}"></script>
-
 </body>
+<script src="{{url_for('static', filename='js/jquery-3.6.0.js')}}"></script>
+<script src="{{url_for('static', filename='js/popper-2.11.2.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="{{url_for('static', filename='js/test.js')}}"></script>
 
 </html>

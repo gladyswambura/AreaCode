@@ -4,10 +4,11 @@ import os
 class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:mock@localhost/areacode'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/areacodelogin'
     DEBUG = True
 
 
@@ -17,8 +18,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
-
+    pass
 
 class TestConfig(Config):
     '''
@@ -26,16 +26,7 @@ class TestConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
-
-class DevConfig(Config):
-    '''
-    Development  configuration child class
-    Args:
-        Config: The parent configuration class with General configuration settings
-    '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@127.0.0.1:5432/areacodelogin'
-    DEBUG = True
+    pass
 
 config_options = {
     'development': DevConfig,

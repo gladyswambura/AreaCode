@@ -1,0 +1,360 @@
+</section>
+<!-- contact section -->
+<section>
+<div class="container text-center" id="contact">
+    <h2 class="p-3 m-3 text-center">CONTACT US</h2>
+    <h4 class="text-secondary">Feel Free to get in touch anytime.</h4>
+    <form action="https://formspree.io/f/mlezleoe" method="POST" class="form d-flex justify-content-center g-5"
+      id="contactForm" name="contactForm">
+      <div class="m-4">
+        <label for="name"></label>
+        <input type="text" class="bg-transparent text-white mb-3" name="name" placeholder="Name &#42" required /><br>
+        <label for="email"></label> <br>
+        <input type="email" class="bg-transparent text-white mb-3" name="email" id="email" placeholder="Email &#42"
+          required /> <br>
+        <label for="subject"></label> <br>
+        <input type="subject" class="bg-transparent text-white mb-3" name="subject" id="subject" placeholder="Subject &#42"
+          required />
+      </div>
+      <div>
+        <label for="message"></label>
+        <textarea rows="10" cols="50" class="bg-transparent text-white container" id="comment" name="message"
+          placeholder="Message &#42"></textarea>
+        <br />
+        <input type="submit" value="Send" id="sendBtn" class="btn btn-primary m-3 text-light" />
+      </div>
+
+    </form>
+  </div>
+</section>\
+<!-- 
+  Navbar.css
+ -->
+<link href="{{url_for('static',filename='css/navbar.css')}}" rel="stylesheet" />
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="brandimg">
+      <a class="navbar-item" href="">
+        <img src="" alt="logo"/>
+      </a>
+    </div>
+    <div class="navbar-star bg-light text-center">
+      <a class="navbar-item" href="/"> Home </a>
+      <a class="navbar-link" href="/about"> About </a>
+      <a class="navbar-item" href="">Photos </a>
+      <a class="navbar-item" href="#contact"> Contact </a>
+  </div>
+    <div class="navbar-right" id="">
+      <div class="buttons">
+        <a class="btn btn-primary m-2" href=""> Sign up </a>
+        <a class="btn btn-primary m-2" href=""> Log in </a>
+      </div>
+     
+    </div>
+  </div>
+</nav>
+
+
+<!-- navbar current user code -->
+{% if current_user.is_authenticated %}
+<a href="{{url_for('main.profile', user_id=current_user.id)}}" class="btn btn-success "
+  >{{current_user.username}} is Active</a>
+<a href="{{url_for('auth.logout')}}" class="btn btn-danger ">Log Out</a>
+{% else %}
+
+<!-- navbar code cut -->
+<div class="navbar-collapse collapse " style="float:right" >
+  {% if current_user.is_authenticated %}
+  <a class="navbar-brand" style="font-size: 14px; " href="{{url_for('main.index',uname=current_user.username)}}">Profile</a>
+  <a class=" btn my-2 my-sm-0" href="{{url_for('auth.logout')}}" style="margin: 10px;">Logout</a>
+  {% else %}
+     <a class=" btn me-auto me-sm-auto logbtn" href="{{url_for('auth.login')}}" style="font-size: 24px;">LOGIN</a>
+     bdeobqchun3qijxwmskx
+  {% endif %}
+</div>
+
+<!-- Navbar new -->
+<!-- <nav class="navbar  navbar-expand-lg bg-primary  py-5">
+  <div class="container">
+      <a class="navbar-brand" href=" #"><img src="{{ url_for('static', filename='loginimages/arealogo.jpeg') }}"
+          alt="logo" width='50' height="50">Area Code</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="{{url_for('main.index',uname=current_user.username)}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="{{url_for('auth.logout')}}">Logout</a>
+        </li>
+        {% else %}
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="{{url_for('auth.login')}}">Login</a>
+        </li>
+        </ul>
+        {% endif %}
+        </li>
+      </ul>
+    </div> -->
+
+
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-bg py-0 sticky-top float-left w-100">
+      <div class="container">
+        <a href="/" class="navbar-brand text-white"><strong class="my-auto">Area Code</strong><i class="fa-solid fa-bolt-lightning fa-2x text-secondary"></i></a>
+        <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse"><span class="navbar-toggler-icon"></span></button>
+        <div class="navbar-collapse collapse" id="main-nav">
+          {% if current_user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-3 my-auto"><a class="text-white" href="{{url_for('posts.new_post')}}" class="nav-link px-4">New Post</a></li>
+            <li class="nav-item mx-3 my-auto"><a class="text-white" href="{{ url_for('home.posts', user_id=current_user.id) }}" class="nav-link px-4">Pitches</a></li>
+            <li class="nav-item mx-3 my-auto"><a class="text-white" href="{{ url_for('home.profile', user_id=current_user.id) }}" class="nav-link px-4">Profie</a></li>
+            <li class="nav-item mx-3 my-auto"><a class="text-white" href="{{ url_for('auth.logout') }}" class="nav-link px-4">Logout</a></li>
+            {% if current_user.profile_pic_path %}
+            <li class="nav-item mx-3 my-auto px-3"><img class="nav-link profile-image" src="{{url_for('static', filename=current_user.profile_pic_path)}}" alt="Profile"></li>
+            {% endif %}
+          </ul>
+          {% else %}
+            <ul class="navbar-nav ml-auto"> 
+            <li class="nav-item mx-3"><a class="text-white" href="{{ url_for('auth.login') }}" class="nav-link px-4">Login</a></li>
+            <li class="nav-item mx-3"><a class="text-white" href="{{ url_for('auth.register') }}" class="nav-link px-4">Register</a></li>
+          </ul>
+          
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- profile view -->
+    <!-- @home.route('/<int:user_id>/profile', methods=['GET', 'POST'])
+@login_required
+def profile(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    if 'photo' in request.files:
+        if user.profile_pic:
+            user_photo = f'/{user.profile_pic.split("/")[1]}'
+            path = os.path.abspath(os.environ.get('UPLOADED_PHOTOS_DEST') + user_photo)
+            if os.path.exists(path):
+                os.remove(path)
+
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic = path
+        user.save()
+        return redirect(url_for('main.profile', user_id=user_id))
+    return render_template('profile/profile.html', user=user) -->
+
+    <!-- likes html from macro -->
+    <p class="ml-4 badge badge-secondary {% if user.id != post.author_id %}like {% endif %}"
+    id="like likes{{post.id}}">
+    <a href="/like/{{post.id}}">
+    <span class="count-likes{{post.id}}"  >
+        {{post.post_likes.count(0)}}
+        <i class="fas fa-2x fa-heart like-fa p-1 text-danger" id="heart">
+        </i>
+    </span>
+</a>
+</p>
+
+<!-- update profile ;code -->
+<h1>update profile</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+    <fieldset class="form-group">
+    <div class="form-group">
+        {{ form.profile_pic.label() }}
+        {{ form.profile_pic(class="form-control-file") }}
+        {% if form.profile_pic.errors %}
+        {% for error in form.profile_pic.errors %}
+        <span class="text-danger">{{ error }}</span>
+        </br>
+        {% endfor %}
+        {% endif %}
+    </div>
+  
+
+
+
+<!-- Navabar styling -->
+/* img{
+  border: 4px solid rgb(23, 36, 219);
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  padding: 15px;
+} */
+/* .navbar-brand{ */
+/* font-size: 1.8em; */
+/* font-weight: bold; */
+/* text-shadow: 0 0 0.5px #000; */
+/* } */
+
+/* .navbar-en {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #000;
+  padding: 20px;
+} */
+
+/* .buttons > a{
+    font-size: 1.2em;
+    box-shadow: 0.2px .7px 0.5px 0.3px rgb(153, 153, 153);
+    margin: 1em;  */
+/* border: 1px solid #000; */
+/* border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+} */
+
+/* .buttons > a:hover{ */
+/* box-shadow: 0 2px 0.5px #000; */
+/* cursor: pointer;
+    color: #fff;
+    background-color: rgb(0, 0, 255);
+/* } */
+/* 
+.navbar-star{
+    border-radius: 10px;
+    margin: auto auto ; 
+}
+
+
+.buttons{ 
+/* background-color: aqua;  */
+/* display:flex;  */
+/* justify-content: between; */
+/* text-align: center;  */
+/* align-items: center;  */
+/* padding: 20px;  */
+/* margin-left: 20px;  */
+/* font-size: 1.5em;  */
+/* font-weight: bold;  */
+/* border-radius: 0.5rem; */
+/* color: #000; */
+
+/* }  */
+/* .navbar-star:hover { */
+/* background-color: rgb(140, 165, 165)!important; */
+/* background-color:olive;  */
+/* display: flex; */
+/* text-align: center; */
+/* align-items: center; */
+/* padding: 20px; */
+/* margin-left: 20px; */
+/* font-size: 1.5em; */
+/* font-weight: bold; */
+/* border-radius: 10px; */
+/* margin-left: 65px; */
+/* } */
+
+/* .navbar-star > a{
+    box-shadow: 0 0 0.5px #000;
+    /* text-align: center; */
+/* margin: 0.5rem 1.0rem ;  */
+/* margin: 1em; */
+/* cursor: pointer; */
+/* padding: 0.5em; */
+/* text-decoration: none; */
+/* color: #000; */
+/* }  */
+
+/* .navbar-star > a:hover{
+    color: #fff;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    background-color: #3e3e50;
+} */
+
+<!-- profile code -->
+<div class="container">
+  <br><br><br><br>
+  <div class="card">
+      <div class="card-body">
+          <form method="POST" action="" enctype="multipart/form-data">
+              <fieldset class="form-group">
+              <div class="form-group">
+                  {{ form.profile_pic.label() }}
+                  {{ form.profile_pic(class="form-control-file") }}
+                  {% if form.profile_pic.errors %}
+                  {% for error in form.profile_pic.errors %}
+                  <span class="text-danger">{{ error }}</span>
+                  </br>
+                  {% endfor %}
+                  {% endif %}
+              </div>
+          </fieldset>
+          </form>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="card position-fixed" style="width: 35rem;">
+              <div class="card-body">
+                  <!-- Profilepic -->
+                  <div class="text-center">
+                      <img class="" src="{{ url_for('static', filename='photos/' + current_user.profile_pic) }}"
+                          style="width:150px; height:150px; border-radius:50%;margin-top: -30px;">
+                      <br><br>
+                  </div>
+                  <h4 class="card-subtitle mb-2 text-active text-center">{{current_user.username}}</h4>
+                  <br>
+                  <h6 class="card-subtitle mb-2 text-active text-center">Location</h6>
+                  <br><br>
+                  <textarea id="txtid" name="txtname" rows="4" cols="40" maxlength="200" placeholder="Bio">
+                      {%if current_user.user_bio %}
+                      <p>{{user.bio}}</p>
+                      {%else%}
+                      <p>No bio</p>
+                      {%endif%}
+                  </textarea>
+                  <br><br><br><br>
+                  {%if current_user.is_authenticated%}
+                  <hr>
+                  <div class="profile-usermenu sidebar-sticky">
+                      <ul class="nav flex-column">
+                          <li class="nav-item">
+                              <a href="{{url_for('home.update_profile', user_id=current_user.id)}}"
+                                  class="btn btn-primary"><i class="fas fa-user-edit"></i>Profile Settings</a>
+                          </li>
+                      </ul>
+                  </div>
+                  {%endif%}
+
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-6">
+          <h5 class="card-title text-center">POSTS</h5>
+          <div class="card">
+              <div class="card-body">
+                  <div class="col-md-9">
+                      <div class="profile-content">
+                          post
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- profile update code -->
+<form method="POST" action="" enctype="multipart/form-data">
+  <fieldset class="form-group">
+  <div class="form-group">
+      {{ form.profile_pic.label() }}
+      {{ form.profile_pic(class="form-control-file") }}
+      {% if form.profile_pic.errors %}
+      {% for error in form.profile_pic.errors %}
+      <span class="text-danger">{{ error }}</span>
+      </br>
+      {% endfor %}
+      {% endif %}
+  </div>
+</fieldset>
+</form>
