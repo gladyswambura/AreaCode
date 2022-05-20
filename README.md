@@ -8,9 +8,9 @@ Flask group project
 - 
 ## Description
 - This is a Social media website which connects individuals within a geographical area to discuss, update, socialize and network within the confines of the specific area code.
-![image]([https://user-images.githubusercontent.com/97955649/168932475-9199170a-22b2-42df-902d-5450a330540d.png](https://files.slack.com/files-pri/T0101L740P4-F03G9G7N5SN/home1.png))
+![image](https://user-images.githubusercontent.com/97955649/169469461-9a369d6f-09f8-4590-9c75-c5f26f71f0db.png)
 
-![image]([https://user-images.githubusercontent.com/97955649/168932475-9199170a-22b2-42df-902d-5450a330540d.png](https://files.slack.com/files-pri/T0101L740P4-F03G9G7N5SN/home1.png](https://files.slack.com/files-pri/T0101L740P4-F03G9G0SAHG/homepage.png))
+![image](https://user-images.githubusercontent.com/97955649/169468370-2c2096ca-8999-4e4e-9fcd-7e1bb51f1c50.png)
 
 ## User Story in Pictures
 ####  User view
