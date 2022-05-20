@@ -21,7 +21,6 @@ Flask group project
 * User can update their profile
 * 
 ## Behavior Driven Development
-| Input                    | Behaviour                       | Output                                       |
 | -------------------------| ------------------------------  | -------------------------------------------- |               |
 | user register && login      | Take you to home page           | Redirect you to the Homepage                 |
 | Create a blog post by filling post form          | Write your  post it     | Your blog is displayed  in home page                     |
